@@ -1,191 +1,214 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICARUS7</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap');
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  .i7-root {
-    background: #050a08;
-    min-height: 420px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-    font-family: 'Share Tech Mono', 'Courier New', monospace;
-  }
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #050a08;
+}
 
-  .i7-root::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,136,0.025) 2px, rgba(0,255,136,0.025) 4px);
-    pointer-events: none;
-    z-index: 2;
-  }
+.i7-root {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Share Tech Mono', 'Courier New', monospace;
+  background: #050a08;
+}
 
-  .i7-root::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.75) 100%);
-    pointer-events: none;
-    z-index: 2;
-  }
+.i7-root::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,136,0.025) 2px, rgba(0,255,136,0.025) 4px);
+  pointer-events: none;
+  z-index: 2;
+}
 
-  .i7-bg-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(0,255,136,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,255,136,0.04) 1px, transparent 1px);
-    background-size: 40px 40px;
-    z-index: 1;
-  }
+.i7-root::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.75) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
 
-  .i7-center {
-    position: relative;
-    z-index: 3;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
-  }
+.i7-bg-grid {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,255,136,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,136,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: 1;
+}
 
-  .i7-pre {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.35em;
-    color: #007a40;
-    text-transform: uppercase;
-    margin-bottom: 18px;
-    opacity: 0;
-    animation: i7fade 0.6s ease 0.3s forwards;
-  }
+.i7-center {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
 
-  .i7-title {
-    font-family: 'VT323', 'Share Tech Mono', monospace;
-    font-size: clamp(72px, 14vw, 130px);
-    line-height: 1;
-    color: #00ff88;
-    letter-spacing: 0.08em;
-    text-shadow:
-      0 0 8px rgba(0,255,136,0.9),
-      0 0 30px rgba(0,255,136,0.5),
-      0 0 70px rgba(0,255,136,0.2);
-    opacity: 0;
-    animation: i7title 0.8s ease 0.7s forwards;
-    cursor: default;
-  }
+.i7-pre {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: clamp(10px, 1vw, 15px);
+  letter-spacing: 0.35em;
+  color: #007a40;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  opacity: 0;
+  animation: i7fade 0.6s ease 0.3s forwards;
+}
 
-  .i7-title:hover {
-    animation: i7glitch 0.15s steps(1) infinite, i7title 0s ease forwards;
-  }
+.i7-title {
+  font-family: 'VT323', 'Share Tech Mono', monospace;
+  font-size: clamp(100px, 22vw, 280px);
+  line-height: 1;
+  color: #00ff88;
+  letter-spacing: 0.08em;
+  text-shadow:
+    0 0 8px rgba(0,255,136,0.9),
+    0 0 30px rgba(0,255,136,0.5),
+    0 0 70px rgba(0,255,136,0.2);
+  opacity: 1;
+  animation: i7title 0.8s ease 0.7s both;
+  cursor: default;
+  user-select: none;
+}
 
-  .i7-divider {
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #00ff88, transparent);
-    margin: 16px 0;
-    opacity: 0;
-    animation: i7fade 0.6s ease 1.2s forwards;
-  }
+.i7-title:hover {
+  opacity: 1;
+  text-shadow:
+    3px 0 #ff3355,
+    -3px 0 #00e5ff,
+    0 0 8px rgba(0,255,136,0.9),
+    0 0 30px rgba(0,255,136,0.5);
+  animation: i7glitch 0.15s steps(1) infinite;
+}
 
-  .i7-sub {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.28em;
-    color: #6a9a7a;
-    text-transform: uppercase;
-    opacity: 0;
-    animation: i7fade 0.6s ease 1.5s forwards;
-  }
+.i7-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #00ff88, transparent);
+  margin: 20px 0;
+  opacity: 0;
+  animation: i7fade 0.6s ease 1.2s forwards;
+}
 
-  .i7-corner {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    z-index: 3;
-  }
-  .i7-corner.tl { top: 16px; left: 16px; border-top: 1px solid #00ff88; border-left: 1px solid #00ff88; }
-  .i7-corner.tr { top: 16px; right: 16px; border-top: 1px solid #00ff88; border-right: 1px solid #00ff88; }
-  .i7-corner.bl { bottom: 16px; left: 16px; border-bottom: 1px solid #00ff88; border-left: 1px solid #00ff88; }
-  .i7-corner.br { bottom: 16px; right: 16px; border-bottom: 1px solid #00ff88; border-right: 1px solid #00ff88; }
+.i7-sub {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: clamp(11px, 1.2vw, 18px);
+  letter-spacing: 0.28em;
+  color: #6a9a7a;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: i7fade 0.6s ease 1.5s forwards;
+}
 
-  .i7-scan {
-    position: absolute;
-    left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(0,255,136,0.4), transparent);
-    z-index: 3;
-    animation: i7scan 4s linear infinite;
-    top: 0;
-  }
+.i7-corner {
+  position: fixed;
+  width: 22px;
+  height: 22px;
+  z-index: 3;
+}
+.i7-corner.tl { top: 20px; left: 20px; border-top: 1px solid #00ff88; border-left: 1px solid #00ff88; }
+.i7-corner.tr { top: 20px; right: 20px; border-top: 1px solid #00ff88; border-right: 1px solid #00ff88; }
+.i7-corner.bl { bottom: 20px; left: 20px; border-bottom: 1px solid #00ff88; border-left: 1px solid #00ff88; }
+.i7-corner.br { bottom: 20px; right: 20px; border-bottom: 1px solid #00ff88; border-right: 1px solid #00ff88; }
 
-  .i7-status {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    z-index: 3;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    color: #3a5e46;
-    opacity: 0;
-    animation: i7fade 0.6s ease 2.2s forwards;
-  }
+.i7-scan {
+  position: fixed;
+  left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0,255,136,0.4), transparent);
+  z-index: 3;
+  animation: i7scan 4s linear infinite;
+  top: 0;
+}
 
-  .i7-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #00ff88;
-    animation: i7pulse 2s ease-in-out infinite;
-  }
+.i7-status {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: clamp(9px, 0.8vw, 12px);
+  letter-spacing: 0.18em;
+  color: #3a5e46;
+  opacity: 0;
+  animation: i7fade 0.6s ease 2.2s forwards;
+}
 
-  .i7-seq {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 3;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    color: #3a5e46;
-    opacity: 0;
-    animation: i7fade 0.6s ease 2s forwards;
-  }
+.i7-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00ff88;
+  animation: i7pulse 2s ease-in-out infinite;
+}
 
-  @keyframes i7fade {
-    from { opacity: 0; transform: translateY(4px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+.i7-seq {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 3;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: clamp(9px, 0.8vw, 12px);
+  letter-spacing: 0.15em;
+  color: #3a5e46;
+  opacity: 0;
+  animation: i7fade 0.6s ease 2s forwards;
+}
 
-  @keyframes i7title {
-    from { opacity: 0; transform: scale(0.96); }
-    to   { opacity: 1; transform: scale(1); }
-  }
+@keyframes i7fade {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
-  @keyframes i7scan {
-    0%   { top: -2px; }
-    100% { top: 100%; }
-  }
+@keyframes i7title {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
 
-  @keyframes i7pulse {
-    0%, 100% { box-shadow: 0 0 4px rgba(0,255,136,0.8); }
-    50%       { box-shadow: 0 0 12px rgba(0,255,136,0.2); }
-  }
+@keyframes i7scan {
+  0%   { top: -2px; }
+  100% { top: 100vh; }
+}
 
-  @keyframes i7glitch {
-    0%   { text-shadow: 3px 0 #ff3355, -3px 0 #00e5ff, 0 0 8px rgba(0,255,136,0.9); }
-    25%  { text-shadow: -3px 0 #ff3355, 3px 0 #00e5ff, 0 0 8px rgba(0,255,136,0.9); }
-    50%  { text-shadow: 2px 0 #ff3355, -2px 0 #00e5ff, 0 0 8px rgba(0,255,136,0.9); }
-    75%  { text-shadow: -2px 0 #ff3355, 2px 0 #00e5ff, 0 0 8px rgba(0,255,136,0.9); }
-    100% { text-shadow: 0 0 8px rgba(0,255,136,0.9), 0 0 30px rgba(0,255,136,0.5); }
-  }
+@keyframes i7pulse {
+  0%, 100% { box-shadow: 0 0 4px rgba(0,255,136,0.8); }
+  50%       { box-shadow: 0 0 12px rgba(0,255,136,0.2); }
+}
+
+@keyframes i7glitch {
+  0%   { text-shadow: 3px 0 #ff3355, -3px 0 #00e5ff, 0 0 8px rgba(0,255,136,0.9); color: #00ff88; }
+  25%  { text-shadow: -3px 0 #ff3355, 3px 0 #00e5ff, 0 0 8px rgba(0,255,136,0.9); color: #00ffaa; }
+  50%  { text-shadow: 2px 0 #ff3355, -2px 0 #00e5ff, 0 0 8px rgba(0,255,136,0.9); color: #00ff88; }
+  75%  { text-shadow: -2px 0 #ff3355, 2px 0 #00e5ff, 0 0 8px rgba(0,255,136,0.9); color: #00ffcc; }
+  100% { text-shadow: 0 0 8px rgba(0,255,136,0.9), 0 0 30px rgba(0,255,136,0.5); color: #00ff88; }
+}
 </style>
+</head>
+<body>
 
 <div class="i7-root">
   <div class="i7-bg-grid"></div>
@@ -210,3 +233,6 @@
     ARCHIVE ONLINE
   </div>
 </div>
+
+</body>
+</html>
